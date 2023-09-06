@@ -1,1 +1,9 @@
-<router-outlet></router-outlet>
+<!-- Loading spinner -->
+<div *ngIf="loading; else showContent" class="loading-container">Loading...</div>
+
+<ng-template #showContent>
+  <div class="content">
+    <span>{{ title }} app is running!</span>
+  </div>
+  <router-outlet></router-outlet>
+</ng-template>

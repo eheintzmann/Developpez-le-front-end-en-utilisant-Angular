@@ -1,34 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import {Olympic} from '../models/Olympic';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
-type Olympics = Array<Olympic>|null|undefined;
+import { Olympic } from '../models/Olympic';
+import { Nullable } from '../types/Nullable';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OlympicService {
   private olympicUrl: string = './assets/mock/olympic.json';
-  private olympics$: BehaviorSubject<Olympics> = new BehaviorSubject<Olympics>(undefined);
+  private olympics$: BehaviorSubject<Nullable<Olympic[]>> = new BehaviorSubject<Nullable<Olympic[]>>(undefined);
 
   constructor(private http: HttpClient) {}
 
-  loadInitialData(): Observable<Olympic[]> {
-    return this.http.get<Olympic[]>(this.olympicUrl).pipe(
-      tap((value:Olympic[]) => this.olympics$.next(value)),
-      catchError((error, caught: Observable<Olympic[]>) => {
-        // TODO: improve error handling
-        console.error(error);
-        // can be useful to end loading state and let the user know something went wrong
-        this.olympics$.next(null);
-        return caught;
-      })
+  loadInitialData(): Observable<Nullable<Olympic[]>> {
+    return this.http.get<Nullable<Olympic[]>>(this.olympicUrl).pipe(
+      tap((value: Nullable<Olympic[]>) => this.olympics$.next(value)),
     );
   }
 
-  getOlympics(): Observable<Olympic[]|null|undefined> {
+  getOlympics(): Observable<Nullable<Olympic[]>> {
     return this.olympics$.asObservable();
   }
 }

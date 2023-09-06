@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs';
+import { delay, take} from 'rxjs';
+
 import { OlympicService } from './core/services/olympic.service';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +11,20 @@ import { OlympicService } from './core/services/olympic.service';
 })
 export class AppComponent implements OnInit {
   public title: string = 'olympic-games-starter';
-  constructor(private olympicService: OlympicService) {}
+  public loading: boolean = true;
+
+  constructor(private _olympicService: OlympicService, private _loading: LoadingService) {}
 
   ngOnInit(): void {
-    this.olympicService.loadInitialData().pipe(take(1)).subscribe();
+    this.listenToLoading();
+    this._olympicService.loadInitialData().pipe(delay(3000),take(1)).subscribe();
+  }
+
+  listenToLoading(): void {
+    this._loading.isLoading$
+      .pipe(delay(0)) // This prevents a ExpressionChangedAfterItHasBeenCheckedError for subsequent requests
+      .subscribe((loading:boolean):void => {
+        this.loading = loading;
+      });
   }
 }

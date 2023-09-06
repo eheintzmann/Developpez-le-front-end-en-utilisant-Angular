@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { OlympicService } from './olympic.service';
-import {HttpClientModule} from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 
 describe('OlympicService', () => {
   let service: OlympicService;

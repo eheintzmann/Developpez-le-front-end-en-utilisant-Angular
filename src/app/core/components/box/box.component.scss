@@ -1,0 +1,23 @@
+@import '../../../../styles.scss';
+
+$box-border: $common-boxes-color;
+$box-background-color: $common-pages-background-color;
+$box-text-color: #7a7a7a;
+$box-number-color: #000000;
+
+.box {
+  padding: 1ex;
+  border: $box-border medium solid;
+  border-radius: 8px;
+  background-color: $box-background-color;
+
+  .text {
+    text-align: center;
+    color: $box-text-color;
+  }
+
+  .number {
+    text-align: center;
+    font-weight: bold;
+  }
+}

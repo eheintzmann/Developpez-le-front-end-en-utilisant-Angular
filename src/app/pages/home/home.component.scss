@@ -1,0 +1,14 @@
+@import '../../../styles.scss';
+
+$tooltip-background-color: $common-boxes-color;
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .number {
+    margin: 2ex;
+  }
+}
