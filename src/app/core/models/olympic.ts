@@ -1,4 +1,5 @@
-import {Participation} from "./Participation";
+import { Participation } from './participation';
+
 export interface Olympic {
    id: number;
    country: string;

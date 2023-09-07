@@ -1,0 +1,28 @@
+@import '../../../styles.scss';
+
+$tooltip-background-color: $common-boxes-color;
+
+#country-container {
+  margin: 0 25%;
+
+  app-title-box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2ex;
+    margin-bottom: 4em;
+  }
+
+  #linechart-container {
+    margin: auto 0;
+  }
+}
+

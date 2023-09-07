@@ -1,12 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-$common-pages-background-color: #ffffff;
-$common-boxes-color: #04838f;
+$common-pages-background-color: rgba(255, 255, 255, 1);
+$common-boxes-color: rgba(4, 131, 143, 1);
 
   ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     .tooltip-caret.position-top {
       border-top-color: $common-boxes-color;
     }
-
     background-color: $common-boxes-color;
   }
 

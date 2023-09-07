@@ -4,12 +4,9 @@ $title-box-background-color: $common-boxes-color;
 $title-box-text-color: $common-pages-background-color;
 
 .title-box {
-  display: block;
-  font-size: 1.5em;
-  margin: 0.83em 0;
-  font-weight: bold;
-  padding: 1ex;
+  padding: 0.5ex 1ex;
   color: $title-box-text-color;
   background-color: $title-box-background-color;
   border-radius: 8px;
+  text-align: center;
 }
