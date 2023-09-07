@@ -35,7 +35,10 @@ export class DataService {
                                 "value": olympic.participations.reduce(
                                     (acc2: number, participation: Participation) => acc2 + participation.medalsCount
                                     , 0
-                                )
+                                ),
+                                "extra": {
+                                    "id": olympic.id
+                                }
                             }
                         )
                     }

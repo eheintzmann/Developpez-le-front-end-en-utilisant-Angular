@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, of, zip } from 'rxjs';
+import { Router } from '@angular/router';
+
 
 import { DataService} from '../../core/services/data.service';
-import {PieChartElement} from "../../core/models/pie-chart-element";
-import {Nullable} from "../../core/types/Nullable";
+import { PieChartElement } from '../../core/models/pie-chart-element';
+import { Nullable } from '../../core/types/Nullable';
+
 type Obj = { [ key: string]: Nullable<PieChartElement[]> | Nullable<number> };
 
 @Component({
@@ -14,7 +17,10 @@ type Obj = { [ key: string]: Nullable<PieChartElement[]> | Nullable<number> };
 export class HomeComponent implements OnInit {
   public data$: Observable<Obj> = of<Obj>({});
 
-  constructor(private _dataService: DataService) {}
+  constructor(
+      private _dataService: DataService,
+      private _router: Router
+  ) {}
 
   ngOnInit(): void {
 
@@ -33,4 +39,7 @@ export class HomeComponent implements OnInit {
       )
     )
   }
+    onSelect($event: PieChartElement) {
+      this._router.navigateByUrl(`/countries/${$event.extra.id}`);
+    }
 }
