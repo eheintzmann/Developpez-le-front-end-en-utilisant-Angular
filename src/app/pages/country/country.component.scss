@@ -3,13 +3,15 @@
 $tooltip-background-color: $common-boxes-color;
 
 #country-container {
-  margin: 0 25%;
+  margin: 0 auto;
+  max-width: calc(max(60%,768px));
 
   app-title-box {
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
+    min-height: 100px;
   }
 
   .row {
@@ -17,12 +19,13 @@ $tooltip-background-color: $common-boxes-color;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    gap: 2ex;
-    margin-bottom: 4em;
+    gap: 1ex 2ex;
+    min-height: 100px;
   }
 
   #linechart-container {
-    margin: auto 0;
+    margin: 2em auto;
+    min-height: calc(90vh - 100px - 180px - 2em);
   }
 }
 
