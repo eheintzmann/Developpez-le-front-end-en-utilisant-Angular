@@ -40,6 +40,6 @@ export class HomeComponent implements OnInit {
     )
   }
     onSelect($event: PieChartElement) {
-      this._router.navigateByUrl(`/countries/${$event.extra.id}`);
+      this._router.navigateByUrl(`/detail/${$event.extra.id}`);
     }
 }

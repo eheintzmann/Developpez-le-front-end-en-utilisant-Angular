@@ -1,6 +1,9 @@
 @import '../../../styles.scss';
 
 $tooltip-background-color: $common-boxes-color;
+$title-box-min-height: 100px;
+$row-min-height: 100px;
+$row-max-height: 180px;
 
 #country-container {
   margin: 0 auto;
@@ -11,7 +14,7 @@ $tooltip-background-color: $common-boxes-color;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
-    min-height: 100px;
+    min-height: $title-box-min-height;
   }
 
   .row {
@@ -20,12 +23,12 @@ $tooltip-background-color: $common-boxes-color;
     justify-content: center;
     align-items: center;
     gap: 1ex 2ex;
-    min-height: 100px;
+    min-height: $row-min-height;
   }
 
   #linechart-container {
     margin: 2em auto;
-    min-height: calc(90vh - 100px - 180px - 2em);
+    min-height: calc(90vh - $title-box-min-height - $row-max-height - $header-height - 2em);
   }
 }
 

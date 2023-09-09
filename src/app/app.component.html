@@ -2,5 +2,26 @@
 <div *ngIf="loading; else showContent" class="loading-container">Loading...</div>
 
 <ng-template #showContent>
-  <router-outlet></router-outlet>
+  <main>
+    <header class="brand-name">
+      <a
+        routerLink=""
+        routerLinkActive #rla="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [ngClass]="rla.isActive ? 'disabled-link' : ''"
+      >
+        <img
+          [title]="rla.isActive ? '' : 'Back to homepage'"
+          src="/assets/image/telesport.png"
+          width="277"
+          height="80"
+          alt="logo"
+          aria-hidden="true"
+        >
+      </a>
+    </header>
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
 </ng-template>
