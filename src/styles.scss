@@ -1,16 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Variables */
 $common-pages-background-color: rgba(255, 255, 255, 1);
 $common-boxes-color: rgba(4, 131, 143, 1);
 $header-height: 20px;
 $common-light-text-color: #7a7a7a;
 
+/* Define Montserrat-VariableFont font */
+@font-face {
+  font-family: Montserrat-VariableFont;
+  src : url("assets/font/Montserrat/Montserrat-VariableFont_wght.ttf");
+}
+
+/* Use Montserrat-VariableFont font in the whole document */
+:root {
+  font-family: Montserrat-VariableFont, sans-serif;
+}
+
 /* Charts tooltips background color */
-  ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
-    .tooltip-caret.position-top {
-      border-top-color: $common-boxes-color;
-    }
-    background-color: $common-boxes-color;
+ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
+  .tooltip-caret.position-top {
+    border-top-color: $common-boxes-color;
   }
+  background-color: $common-boxes-color;
+}
 
 /* Size and placement of line chart x-axis label */
 ngx-charts-line-chart {
