@@ -4,9 +4,21 @@ $common-boxes-color: rgba(4, 131, 143, 1);
 $header-height: 20px;
 $common-light-text-color: #7a7a7a;
 
+/* Charts tooltips background color */
   ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     .tooltip-caret.position-top {
       border-top-color: $common-boxes-color;
     }
     background-color: $common-boxes-color;
   }
+
+/* Size and placement of line chart x-axis label */
+ngx-charts-line-chart {
+  .x.axis {
+    .ng-star-inserted > text:only-child {
+      font-size: x-large;
+      fill: $common-light-text-color;
+      transform: translate(0, 1em);
+    }
+  }
+}
