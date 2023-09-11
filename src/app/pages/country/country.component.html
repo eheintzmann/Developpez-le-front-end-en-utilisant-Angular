@@ -1,4 +1,4 @@
-<div *ngIf="countryName && participationCount && medalCount && athleteCount && lineChart" id="country-container">
+<section *ngIf="countryName && participationCount && medalCount && athleteCount && lineChart" id="country-container">
   <app-title-box [title]="countryName"></app-title-box>
   <div class="row">
     <app-box text="Number of entries" [number]="participationCount" class="number"></app-box>
@@ -20,4 +20,4 @@
       [yAxisTickFormatting]="axisFormat"
     ></ngx-charts-line-chart>
   </div>
-</div>
+</section>

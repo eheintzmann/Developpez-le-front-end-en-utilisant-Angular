@@ -5,7 +5,7 @@
   <main>
     <header>
       <nav>
-        <div class="brand-name">
+        <div id="brand-name-container">
           <a
             routerLink=""
             routerLinkActive #rla="routerLinkActive"
@@ -13,6 +13,7 @@
             [ngClass]="rla.isActive ? 'disabled-link' : ''"
           >
             <img
+              id="brand-logo"
               [title]="rla.isActive ? '' : 'Home'"
               src="/assets/svg/home.svg"
               alt="logo"
@@ -22,8 +23,6 @@
         </div>
       </nav>
     </header>
-    <section class="content">
-      <router-outlet></router-outlet>
-    </section>
+    <router-outlet></router-outlet>
   </main>
 </ng-template>

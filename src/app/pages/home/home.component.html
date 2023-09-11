@@ -1,5 +1,5 @@
 <ng-container *ngIf="(data$ | async) as data" >
-  <div *ngIf="data['jOsCount'] && data['countriesCount'] && data['pieChart']" id="dashboard-container">
+  <section *ngIf="data['jOsCount'] && data['countriesCount'] && data['pieChart']" id="dashboard-container">
     <app-title-box title="Medals per Country" class="title"></app-title-box>
     <div class="row">
       <app-box text="Number of JOs" [number]="+data['jOsCount']" class="number"></app-box>
@@ -28,5 +28,5 @@
         </ng-template>
       </ngx-charts-pie-chart>
     </div>
-  </div>
+  </section>
 </ng-container>
