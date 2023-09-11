@@ -24,6 +24,7 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
   .tooltip-caret.position-top {
     border-top-color: $common-boxes-color;
   }
+  padding: 0.5ex 1.5ex;
   background-color: $common-boxes-color;
 }
 
