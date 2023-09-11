@@ -3,7 +3,7 @@
 $box-border-color: $common-boxes-color;
 $box-background-color: $common-pages-background-color;
 $box-text-color: $common-light-text-color;
-$box-number-color: #000000;
+$box-number-color: rgba(0, 0, 0, 1);
 
 #box-container {
   padding: 1ex;
@@ -11,9 +11,11 @@ $box-number-color: #000000;
   border-radius: 8px;
   background-color: $box-background-color;
   text-align: center;
-  color: $box-text-color;
-  font-weight: normal;
 
+  #text-container {
+    color: $box-text-color;
+    font-weight: normal;
+  }
 
   #number-container {
     font-weight: bold;
