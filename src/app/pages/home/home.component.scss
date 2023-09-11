@@ -1,14 +1,41 @@
 @import '../../../styles.scss';
 
 $tooltip-background-color: $common-boxes-color;
+$title-box-min-height: $common-title-box-min-height ;
+$row-min-height: $common-row-min-height;
+$row-max-height: 120px;
+$piechart-vertical-margin: 2em;
 
-.row-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+#dashboard-container {
+  margin: 0 auto;
 
-  .number {
-    margin: 2ex;
+  app-title-box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    min-height: $title-box-min-height;
+  }
+
+
+  .row {
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1ex 2ex;
+    min-height: $row-min-height;
+  }
+
+  #piechart-container {
+    margin: $piechart-vertical-margin auto;
+    max-width: 520px;
+    min-height: calc(max(
+      200px,
+      100vh - (2 * $w3c-margin) - $header-height - $title-box-min-height - $row-max-height - (2 * $piechart-vertical-margin)
+    )
+    );
   }
 }
+

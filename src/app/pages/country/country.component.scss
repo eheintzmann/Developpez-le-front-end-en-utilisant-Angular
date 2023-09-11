@@ -1,11 +1,10 @@
 @import '../../../styles.scss';
 
 $tooltip-background-color: $common-boxes-color;
-$title-box-min-height: 100px;
-$row-min-height: 100px;
+$title-box-min-height: $common-title-box-min-height;
+$row-min-height: $common-row-min-height;
 $row-max-height: 180px;
 $linechart-vertical-margin: 2em;
-$w3c-margin: 8px;
 
 #country-container {
   margin: 0 auto;
@@ -37,6 +36,10 @@ $w3c-margin: 8px;
   #linechart-container {
     margin: $linechart-vertical-margin auto;
     max-width: 520px;
-    min-height: calc(100vh - (2 * $w3c-margin) - $header-height - $title-box-min-height - $row-max-height - (2 * $linechart-vertical-margin));
+    min-height: calc(max(
+      200px,
+      100vh - (2 * $w3c-margin) - $header-height - $title-box-min-height - $row-max-height - (2 * $linechart-vertical-margin)
+    )
+    );
   }
 }

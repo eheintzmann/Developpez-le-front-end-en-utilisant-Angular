@@ -1,13 +1,11 @@
 <ng-container *ngIf="(data$ | async) as data" >
-  <div *ngIf="data['jOsCount'] && data['countriesCount'] && data['pieChart']" class="dashboard">
-    <div class="row-container">
-      <app-title-box title="Medals per Country" class="title"></app-title-box>
-    </div>
-    <div class="row-container">
+  <div *ngIf="data['jOsCount'] && data['countriesCount'] && data['pieChart']" id="dashboard-container">
+    <app-title-box title="Medals per Country" class="title"></app-title-box>
+    <div class="row">
       <app-box text="Number of JOs" [number]="+data['jOsCount']" class="number"></app-box>
       <app-box text="Number of countries" [number]="+data['countriesCount']" class="number"></app-box>
     </div>
-    <div class="pie-chart">
+    <div id="piechart-container">
       <ngx-charts-pie-chart
         class="truc"
         [animations]="true"
