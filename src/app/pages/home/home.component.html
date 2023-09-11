@@ -22,7 +22,10 @@
         <ng-template #tooltipTemplate let-model="model">
           <div class="tooltip">
             <div>{{ model.name }}</div>
-            <div>{{ model.value }}</div>
+            <div>
+              <fa-icon [icon]="faAward" size="xs"></fa-icon>
+              {{ model.value }}
+            </div>
           </div>
         </ng-template>
       </ngx-charts-pie-chart>

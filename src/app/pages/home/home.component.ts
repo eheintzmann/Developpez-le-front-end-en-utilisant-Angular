@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { map, Observable, of, zip } from 'rxjs';
 import { Router } from '@angular/router';
-
+import { faAward } from '@fortawesome/free-solid-svg-icons';
 
 import { DataService} from '../../core/services/data.service';
 import { PieChartElement } from '../../core/models/pie-chart-element';
@@ -15,11 +15,12 @@ type Obj = { [ key: string]: Nullable<PieChartElement[]> | Nullable<number> };
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  readonly faAward = faAward;
   public data$: Observable<Obj> = of<Obj>({});
 
   constructor(
-      private _dataService: DataService,
-      private _router: Router
+    private _dataService: DataService,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +40,8 @@ export class HomeComponent implements OnInit {
       )
     )
   }
-    onSelect($event: PieChartElement) {
-      this._router.navigateByUrl(`/detail/${$event.extra.id}`);
-    }
+  onSelect($event: PieChartElement) {
+    this._router.navigateByUrl(`/detail/${$event.extra.id}`);
+  }
+
 }

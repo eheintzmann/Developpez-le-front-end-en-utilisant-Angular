@@ -13,6 +13,7 @@ import { TitleBoxComponent } from './core/shared-components/title-box/title-box.
 import { HttpLoadingInterceptor } from './core/errors/http-loading.interceptor';
 import { GlobalErrorHandler } from './core/errors/global-error-handler';
 import { CountryComponent } from './pages/country/country.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { CountryComponent } from './pages/country/country.component';
     HttpClientModule,
     NgxChartsModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpLoadingInterceptor, multi: true },
