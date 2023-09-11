@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { Olympic } from '../models/Olympic';
+import { Olympic } from '../models/olympic';
 import { Nullable } from '../types/Nullable';
 
 @Injectable({
@@ -13,10 +13,10 @@ export class OlympicService {
   private olympicUrl: string = './assets/mock/olympic.json';
   private olympics$: BehaviorSubject<Nullable<Olympic[]>> = new BehaviorSubject<Nullable<Olympic[]>>(undefined);
 
-  constructor(private http: HttpClient) {}
+  constructor(private _http: HttpClient) {}
 
   loadInitialData(): Observable<Nullable<Olympic[]>> {
-    return this.http.get<Nullable<Olympic[]>>(this.olympicUrl).pipe(
+    return this._http.get<Nullable<Olympic[]>>(this.olympicUrl).pipe(
       tap((value: Nullable<Olympic[]>) => this.olympics$.next(value)),
     );
   }

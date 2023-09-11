@@ -1,3 +1,5 @@
+@import '../styles.scss';
+
 .loading-container {
   display: flex;
   align-items: center;
@@ -7,3 +9,24 @@
   background-color: rgba(0,0,0,0.3);
   z-index: 5;
 }
+
+header {
+  background-color: $common-pages-background-color;
+  height: $header-height;
+  box-shadow: 0 5px 25px #E8E8E8;
+  user-select: none;
+
+  img {
+    height: $header-height;
+  }
+
+  a.disabled-link {
+    pointer-events: none;
+    cursor: default;
+    img {
+      border: thin solid black;
+    }
+  }
+}
+
+

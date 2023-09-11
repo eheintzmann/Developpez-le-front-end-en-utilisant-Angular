@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse } from '@angular/common/http';
-import { map, Observable, throwError } from 'rxjs';
+import { delay, map, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { LoadingService } from '../services/loading.service';
@@ -15,7 +15,7 @@ export class HttpLoadingInterceptor implements HttpInterceptor {
     this._loading.setLoading(true, request.url);
     return next.handle(request)
       .pipe(
-        // delay(2500),
+        delay(2500),
         catchError((error: any) => {
           this._loading.setLoading(false, request.url);
           let errorMessage: string = '';

@@ -2,8 +2,28 @@
 <div *ngIf="loading; else showContent" class="loading-container">Loading...</div>
 
 <ng-template #showContent>
-  <div class="content">
-    <span>{{ title }} app is running!</span>
-  </div>
-  <router-outlet></router-outlet>
+  <main>
+    <header>
+      <nav>
+        <div class="brand-name">
+          <a
+            routerLink=""
+            routerLinkActive #rla="routerLinkActive"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [ngClass]="rla.isActive ? 'disabled-link' : ''"
+          >
+            <img
+              [title]="rla.isActive ? '' : 'Home'"
+              src="/assets/svg/home.svg"
+              alt="logo"
+              aria-hidden="true"
+            >
+          </a>
+        </div>
+      </nav>
+    </header>
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
 </ng-template>
