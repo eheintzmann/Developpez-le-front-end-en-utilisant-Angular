@@ -11,15 +11,21 @@
 }
 
 header {
-  display: block;
   background-color: $common-pages-background-color;
   height: $header-height;
   box-shadow: 0 5px 25px #E8E8E8;
   user-select: none;
 
+  img {
+    height: $header-height;
+  }
+
   a.disabled-link {
     pointer-events: none;
     cursor: default;
+    img {
+      border: thin solid black;
+    }
   }
 }
 

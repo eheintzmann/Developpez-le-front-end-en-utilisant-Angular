@@ -4,10 +4,11 @@ $tooltip-background-color: $common-boxes-color;
 $title-box-min-height: 100px;
 $row-min-height: 100px;
 $row-max-height: 180px;
+$linechart-vertical-margin: 2em;
+$w3c-margin: 8px;
 
 #country-container {
   margin: 0 auto;
-  max-width: calc(max(60%,768px));
 
   app-title-box {
     display: flex;
@@ -18,6 +19,7 @@ $row-max-height: 180px;
   }
 
   .row {
+    margin: 0 auto;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
@@ -26,9 +28,15 @@ $row-max-height: 180px;
     min-height: $row-min-height;
   }
 
+  @media (max-width: 520px) {
+    .row {
+      flex-direction: column;
+    }
+  }
+
   #linechart-container {
-    margin: 2em auto;
-    min-height: calc(90vh - $title-box-min-height - $row-max-height - $header-height - 2em);
+    margin: $linechart-vertical-margin auto;
+    max-width: 520px;
+    min-height: calc(100vh - (2 * $w3c-margin) - $header-height - $title-box-min-height - $row-max-height - (2 * $linechart-vertical-margin));
   }
 }
-
