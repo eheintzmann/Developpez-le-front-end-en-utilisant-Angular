@@ -8,16 +8,16 @@ import { CountryDetailComponent } from './pages/country-detail/country-detail.co
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
   },
   {
     path: 'detail/:id',
-    component: CountryDetailComponent,
+    component: CountryDetailComponent
   },
   {
     path: 'dashboard',
-    redirectTo: '/',
-    pathMatch: 'full',
+    component: HomeComponent
   },
   {
     path: '**', // wildcard
