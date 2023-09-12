@@ -12,7 +12,7 @@ import { BoxComponent } from './core/shared-components/box/box.component';
 import { TitleBoxComponent } from './core/shared-components/title-box/title-box.component';
 import { HttpLoadingInterceptor } from './core/errors/http-loading.interceptor';
 import { GlobalErrorHandler } from './core/errors/global-error-handler';
-import { CountryComponent } from './pages/country/country.component';
+import { CountryDetailComponent } from './pages/country-detail/country-detail.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
@@ -22,7 +22,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     NotFoundComponent,
     TitleBoxComponent,
-    CountryComponent
+    CountryDetailComponent
   ],
   imports: [
     BrowserModule,

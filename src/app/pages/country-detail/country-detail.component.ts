@@ -7,10 +7,10 @@ import { LineChartElement } from '../../core/models/line-chart-element';
 
 @Component({
   selector: 'app-country',
-  templateUrl: './country.component.html',
-  styleUrls: ['./country.component.scss']
+  templateUrl: './country-detail.component.html',
+  styleUrls: ['./country-detail.component.scss']
 })
-export class CountryComponent {
+export class CountryDetailComponent {
 
   countryName: Nullable<string>;
   participationCount: Nullable<number>;
