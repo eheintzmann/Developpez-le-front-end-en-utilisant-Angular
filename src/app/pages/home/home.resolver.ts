@@ -1,0 +1,24 @@
+import { ResolveFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { forkJoin } from 'rxjs';
+
+import { DataService } from '../../core/services/data/data.service';
+import { Nullable } from '../../core/types/Nullable';
+import { PieChartElement } from '../../core/models/pie-chart-element';
+
+type CountryDetailData = {
+  "pieChart": Nullable<PieChartElement[]>,
+  "countryCount": Nullable<number>,
+  "jOCount": Nullable<number>
+};
+
+export const homeResolver: ResolveFn<CountryDetailData> = (route, state) => {
+
+  const dataService: DataService = inject(DataService);
+
+  return forkJoin({
+    "pieChart": dataService.getPieChartData(),
+    "countryCount": dataService.getCountryCount(),
+    "jOCount": dataService.getJOCount()
+  });
+}

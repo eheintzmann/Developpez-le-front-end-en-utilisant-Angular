@@ -4,6 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountryDetailComponent } from './pages/country-detail/country-detail.component';
+import { homeResolver } from "./pages/home/home.resolver";
+import { countryDetailResolver } from "./pages/country-detail/country-detail.resolver";
 
 const routes: Routes = [
   {
@@ -12,12 +14,14 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'detail/:id',
-    component: CountryDetailComponent
+    path: 'dashboard',
+    component: HomeComponent,
+    resolve: { homeData: homeResolver }
   },
   {
-    path: 'dashboard',
-    component: HomeComponent
+    path: 'detail/:id',
+    component: CountryDetailComponent,
+    resolve: { countryDetailData: countryDetailResolver }
   },
   {
     path: '**', // wildcard

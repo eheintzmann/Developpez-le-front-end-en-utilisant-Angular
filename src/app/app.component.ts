@@ -1,30 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { delay, take} from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 
-import { OlympicService } from './core/services/olympic.service';
-import { LoadingService } from './core/services/loading.service';
+import { Subscription, tap } from "rxjs";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  public title: string = 'olympic-games-starter';
-  public loading: boolean = true;
+export class AppComponent implements OnInit, OnDestroy {
+  title: string = 'olympic-games-starter';
+  loading: boolean = false;
+  subscription: Subscription = new Subscription();
 
-  constructor(private _olympicService: OlympicService, private _loading: LoadingService) {}
+  constructor(
+    private _router: Router
+  ) {
+    this.subscription = this._router.events
+      .pipe(
+        tap({
+            next: (event): void => {
+              if (event instanceof NavigationStart) {
+                this.loading = true;
+              } else if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+                this.loading = false;
+              }
+            },
+            error: (): void => {
+              this.loading = false
+            }
+          }
+        )
+      ).subscribe();
+  }
+
 
   ngOnInit(): void {
-    this.listenToLoading();
-    this._olympicService.loadInitialData().pipe(delay(3000),take(1)).subscribe();
   }
 
-  listenToLoading(): void {
-    this._loading.isLoading$
-      .pipe(delay(0)) // This prevents a ExpressionChangedAfterItHasBeenCheckedError for subsequent requests
-      .subscribe((loading:boolean):void => {
-        this.loading = loading;
-      });
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
+
 }

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { OlympicService } from "./olympic.service";
+import { OlympicService } from "../olympic/olympic.service";
 import { map, Observable } from 'rxjs';
 
-import { Nullable } from '../types/Nullable';
-import { PieChartElement } from '../models/pie-chart-element';
-import { Olympic } from '../models/olympic';
-import { Participation } from '../models/participation';
-import { LineChartSeries } from '../models/line-chart-series';
-import { LineChartElement } from '../models/line-chart-element';
+import { Nullable } from '../../types/Nullable';
+import { PieChartElement } from '../../models/pie-chart-element';
+import { Olympic } from '../../models/olympic';
+import { Participation } from '../../models/participation';
+import { LineChartSeries } from '../../models/line-chart-series';
+import { LineChartElement } from '../../models/line-chart-element';
 
 
 @Injectable({

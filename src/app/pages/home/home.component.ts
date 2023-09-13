@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { map, Observable, of, zip } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faAward } from '@fortawesome/free-solid-svg-icons';
 
-import { DataService} from '../../core/services/data.service';
 import { PieChartElement } from '../../core/models/pie-chart-element';
-import { Nullable } from '../../core/types/Nullable';
-
-type Obj = { [ key: string]: Nullable<PieChartElement[]> | Nullable<number> };
 
 @Component({
   selector: 'app-home',
@@ -16,31 +11,26 @@ type Obj = { [ key: string]: Nullable<PieChartElement[]> | Nullable<number> };
 })
 export class HomeComponent implements OnInit {
   readonly faAward = faAward;
-  public data$: Observable<Obj> = of<Obj>({});
+  data = {
+    "pieChart": null,
+    "countryCount": null,
+    "jOCount": null
+  };
 
   constructor(
-    private _dataService: DataService,
+    private _activatedRoute: ActivatedRoute,
     private _router: Router
   ) {}
 
   ngOnInit(): void {
 
-    this.data$ = zip(
-      this._dataService.getPieChartData(),
-      this._dataService.getCountryCount(),
-      this._dataService.getJOCount()
-    ).pipe(
-      map(([pie, countries, jOs]: Array<Nullable<PieChartElement[]> | Nullable<number>>): Obj => (
-          {
-            pieChart: pie,
-            countriesCount: countries,
-            jOsCount: jOs
-          }
-        )
-      )
-    )
+    this._activatedRoute.data.subscribe(
+      ({homeData}) => {
+        this.data = homeData;
+      })
   }
-  onSelect($event: PieChartElement) {
+
+  onSelect($event: PieChartElement): void {
     this._router.navigateByUrl(`/detail/${$event.extra.id}`);
   }
 

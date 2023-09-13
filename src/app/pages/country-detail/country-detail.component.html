@@ -1,14 +1,14 @@
-<section *ngIf="countryName && participationCount && medalCount && athleteCount && lineChart" id="country-container">
-  <app-title-box [title]="countryName"></app-title-box>
+<section *ngIf="data['countryName'] && data['participationCount'] && data['medalCount'] && data['athleteCount'] && data['lineChart']" id="country-container">
+  <app-title-box [title]="''+data['countryName']"></app-title-box>
   <div class="row">
-    <app-box text="Number of entries" [number]="participationCount" class="number"></app-box>
-    <app-box text="Total number medals" [number]="medalCount" class="number"></app-box>
-    <app-box text="Total number of athletes" [number]="athleteCount" class="number"></app-box>
+    <app-box text="Number of entries" [number]="+data['participationCount']" class="number"></app-box>
+    <app-box text="Total number medals" [number]="+data['medalCount']" class="number"></app-box>
+    <app-box text="Total number of athletes" [number]="+data['medalCount']" class="number"></app-box>
   </div>
   <div id="linechart-container">
     <ngx-charts-line-chart
       [animations]="true"
-      [results]="lineChart"
+      [results]="data['lineChart']"
       [legend]="false"
       [xAxis]="true"
       [yAxis]="true"
