@@ -6,13 +6,13 @@ import { DataService } from '../../core/services/data/data.service';
 import { Nullable } from '../../core/types/Nullable';
 import { PieChartElement } from '../../core/models/pie-chart-element';
 
-type CountryDetailData = {
+type HomeData = {
   "pieChart": Nullable<PieChartElement[]>,
   "countryCount": Nullable<number>,
   "jOCount": Nullable<number>
 };
 
-export const homeResolver: ResolveFn<CountryDetailData> = (route, state) => {
+export const homeResolver: ResolveFn<HomeData> = (route, state) => {
 
   const dataService: DataService = inject(DataService);
 

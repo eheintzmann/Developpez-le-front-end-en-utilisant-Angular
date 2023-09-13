@@ -6,14 +6,14 @@ import { DataService } from '../../core/services/data/data.service';
 import { Nullable } from '../../core/types/Nullable';
 import { LineChartElement } from '../../core/models/line-chart-element';
 
-type HomeData = {
+type CountryDetailData = {
   "countryName": string,
   "participationCount": Nullable<number>,
   "medalCount": Nullable<number>,
   "athleteCount": Nullable<number>,
   "lineChart": Nullable<LineChartElement[]>
 };
-export const countryDetailResolver: ResolveFn<HomeData> = (route, state) => {
+export const countryDetailResolver: ResolveFn<CountryDetailData> = (route, state) => {
 
   const dataService: DataService = inject(DataService);
 
