@@ -6,6 +6,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountryDetailComponent } from './pages/country-detail/country-detail.component';
 import { homeResolver } from "./pages/home/home.resolver";
 import { countryDetailResolver } from "./pages/country-detail/country-detail.resolver";
+import { ServerErrorComponent } from "./pages/server-error/server-error.component";
+import { serverErrorResolver } from "./pages/server-error/server-error.resolver";
 
 const routes: Routes = [
   {
@@ -24,9 +26,14 @@ const routes: Routes = [
     resolve: { countryDetailData: countryDetailResolver }
   },
   {
+    path: 'server-error',
+    component: ServerErrorComponent,
+    resolve: { serverError: serverErrorResolver }
+  },
+  {
     path: '**', // wildcard
     component: NotFoundComponent,
-  },
+  }
 ];
 
 @NgModule({

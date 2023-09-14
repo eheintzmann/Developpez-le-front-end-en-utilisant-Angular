@@ -17,7 +17,6 @@ export class CachingInterceptor implements HttpInterceptor {
     }
 
     const cachedResponse: HttpResponse<any> | undefined = this._cache.get(request.url);
-    console.log('In cache');
     return cachedResponse ? of(cachedResponse) : this.sendRequest(request, next);
   }
 
@@ -38,7 +37,6 @@ export class CachingInterceptor implements HttpInterceptor {
         // There may be other events besides the response.
         if (event instanceof HttpResponse) {
           this._cache.set(req.url, event); // Update the cache.
-          console.log('cached')
         }
       })
     );
