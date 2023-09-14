@@ -33,8 +33,8 @@ import { CachingInterceptor } from './core/http-interceptors/caching.interceptor
     FontAwesomeModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
-    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })
