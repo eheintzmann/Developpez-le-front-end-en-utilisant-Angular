@@ -3,15 +3,14 @@ import { ResolveFn } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
 import { DataService } from '../../core/services/data/data.service';
-import { Nullable } from '../../core/types/Nullable';
 import { LineChartElement } from '../../core/models/line-chart-element';
 
 type CountryDetailData = {
   "countryName": string,
-  "participationCount": Nullable<number>,
-  "medalCount": Nullable<number>,
-  "athleteCount": Nullable<number>,
-  "lineChart": Nullable<LineChartElement[]>
+  "participationCount": number,
+  "medalCount": number,
+  "athleteCount": number,
+  "lineChart": LineChartElement[]
 };
 export const countryDetailResolver: ResolveFn<CountryDetailData> = (route, state) => {
 

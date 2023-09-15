@@ -8,9 +8,7 @@ export class GlobalErrorHandler implements ErrorHandler {
   constructor(private _router: Router) { }
 
   handleError(wrapperError: any ) {
-
     const error = wrapperError.rejection ? wrapperError.rejection : wrapperError;
-    let message: string;
 
     if (error instanceof HttpErrorResponse) {
       // Server Error

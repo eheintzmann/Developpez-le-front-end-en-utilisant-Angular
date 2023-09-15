@@ -3,13 +3,12 @@ import { inject } from '@angular/core';
 import { forkJoin } from 'rxjs';
 
 import { DataService } from '../../core/services/data/data.service';
-import { Nullable } from '../../core/types/Nullable';
 import { PieChartElement } from '../../core/models/pie-chart-element';
 
 type HomeData = {
-  "pieChart": Nullable<PieChartElement[]>,
-  "countryCount": Nullable<number>,
-  "jOCount": Nullable<number>
+  "pieChart": PieChartElement[],
+  "countryCount": number,
+  "jOCount": number
 };
 
 export const homeResolver: ResolveFn<HomeData> = (route, state) => {
