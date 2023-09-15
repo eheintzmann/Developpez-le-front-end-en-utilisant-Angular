@@ -1,8 +1,8 @@
 <section *ngIf="data['jOCount'] && data['countryCount'] && data['pieChart']" id="dashboard-container">
   <app-title-box title="Medals per Country" class="title"></app-title-box>
   <div class="row">
-    <app-box text="Number of JOs" [number]="+data['jOCount']" class="number"></app-box>
-    <app-box text="Number of countries" [number]="+data['countryCount']" class="number"></app-box>
+    <app-box text="Number of JOs" [number]="data['jOCount']" class="number"></app-box>
+    <app-box text="Number of countries" [number]="data['countryCount']" class="number"></app-box>
   </div>
   <div id="piechart-container">
     <ngx-charts-pie-chart

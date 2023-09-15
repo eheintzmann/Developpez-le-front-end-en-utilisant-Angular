@@ -21,12 +21,8 @@ export class OlympicService {
     return this.getOlympics()
       .pipe(
         map((olympics: Olympic[]) => {
+          const arr: Olympic[] = olympics.filter((olympic: Olympic) => olympic.id.toString() === id);
 
-          const idNumber: number = Number(id);
-          if (!Number.isInteger(idNumber)) {
-            throw Error(`Error 400 - Bad Request - Invalid country id : ${id}`);
-          }
-          const arr: Olympic[] = olympics.filter((olympic: Olympic) => olympic.id == idNumber);
           if (arr.length === 0) {
             throw new HttpErrorResponse(({
               status: 400,

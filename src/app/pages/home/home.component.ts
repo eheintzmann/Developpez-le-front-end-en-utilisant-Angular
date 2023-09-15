@@ -11,8 +11,8 @@ import { Subscription } from "rxjs";
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  readonly faAward = faAward;
-  public data! : { [key: string]: string | number }
+  public readonly faAward = faAward;
+  public data!: { "pieChart": PieChartElement[], "countryCount": number, "jOCount": number};
   private subscription = new Subscription();
 
   constructor(

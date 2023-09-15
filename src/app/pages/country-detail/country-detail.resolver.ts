@@ -12,10 +12,9 @@ type CountryDetailData = {
   "athleteCount": number,
   "lineChart": LineChartElement[]
 };
+
 export const countryDetailResolver: ResolveFn<CountryDetailData> = (route, state) => {
-
   const dataService: DataService = inject(DataService);
-
   const countryId: string | null = route.paramMap.get('id');
 
   return forkJoin({

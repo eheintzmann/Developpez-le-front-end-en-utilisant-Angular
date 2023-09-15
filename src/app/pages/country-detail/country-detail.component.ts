@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { DataService } from '../../core/services/data/data.service';
+import { LineChartElement } from "../../core/models/line-chart-element";
 
 @Component({
   selector: 'app-country',
@@ -9,13 +10,12 @@ import { DataService } from '../../core/services/data/data.service';
   styleUrls: ['./country-detail.component.scss']
 })
 export class CountryDetailComponent {
-
-  data = {
-    "countryName": null,
-    "participationCount": null,
-    "medalCount": null,
-    "athleteCount": null,
-    "lineChart": null,
+  public data!: {
+    "countryName": string,
+    "participationCount": number,
+    "medalCount": number,
+    "athleteCount": number,
+    "lineChart": LineChartElement[]
   };
 
   constructor(private _dataService: DataService, private _activatedRoute: ActivatedRoute) {
