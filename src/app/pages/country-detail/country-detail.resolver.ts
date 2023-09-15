@@ -16,17 +16,14 @@ export const countryDetailResolver: ResolveFn<CountryDetailData> = (route, state
 
   const dataService: DataService = inject(DataService);
 
-  const id: number = Number(route.paramMap.get('id'));
-  if (!Number.isInteger(id)) {
-    throw Error(`Error 400 - Bad Request - Invalid country id : ${route.paramMap.get('id')}`);
-  }
+  const countryId: string | null = route.paramMap.get('id');
 
   return forkJoin({
-    "countryName": dataService.getCountryName(id),
-    "participationCount": dataService.getParticipationCountByCountryId(id),
-    "medalCount": dataService.getMedalCountByCountryId(id),
-    "athleteCount": dataService.getAthleteCountByCountryId(id),
-    "lineChart": dataService.getLineChartData(id)
+    "countryName": dataService.getCountryName(countryId),
+    "participationCount": dataService.getParticipationCountByCountryId(countryId),
+    "medalCount": dataService.getMedalCountByCountryId(countryId),
+    "athleteCount": dataService.getAthleteCountByCountryId(countryId),
+    "lineChart": dataService.getLineChartData(countryId)
   });
 
 }

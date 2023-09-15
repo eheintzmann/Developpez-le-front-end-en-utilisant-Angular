@@ -20,6 +20,9 @@ export class DataService {
   getPieChartData(): Observable<PieChartElement[]> {
     return this._olympicService.getOlympics().pipe(
       map((olympics: Olympic[]): PieChartElement[] => {
+        if(olympics.length === 0 ) {
+          throw Error('Empty data')
+        }
           const arr: PieChartElement[] = []
           for (const olympic of olympics) {
             if (!olympic.participations) {
@@ -53,7 +56,9 @@ export class DataService {
   getJOCount(): Observable<number> {
     return this._olympicService.getOlympics().pipe(
       map((olympics: Olympic[]): number => {
-
+          if (olympics.length === 0) {
+            throw Error('Empty data')
+          }
           const yearSet: Set<number> = new Set<number>();
           for (const olympic of olympics) {
             if (olympic.participations) {
@@ -70,29 +75,24 @@ export class DataService {
     )
   }
 
-  getCountryName(id: number): Observable<string> {
-    return this._olympicService.getOlympics().pipe(
-      map((olympics: Olympic[]): string => {
-            const olympic = olympics.filter((element: Olympic): boolean => element.id == id)[0];
-            if (!olympic) {
-              throw Error(`Country id: ${id} does not exist`);
-            }
-            return olympic.country;
-        }
+  getCountryName(id: string | null): Observable<string> {
+    return this._olympicService.getOlympicByCountryId(id)
+      .pipe(
+        map((olympic: Olympic): string => olympic.country)
       )
-    )
   }
 
-  getParticipationCountByCountryId(id: number): Observable<number> {
-    return this._olympicService.getOlympics().pipe(
-      map((olympics: Olympic[]): number => this.getParticipationsPerCountry(olympics, id).length)
+  getParticipationCountByCountryId(id: string | null): Observable<number> {
+    return this._olympicService.getOlympicByCountryId(id)
+      .pipe(
+        map((olympic: Olympic): number =>  this._getParticipations(olympic).length)
     );
   }
 
-  getMedalCountByCountryId(id: number): Observable<number> {
-    return this._olympicService.getOlympics().pipe(
+  getMedalCountByCountryId(id: string | null): Observable<number> {
+    return this._olympicService.getOlympicByCountryId(id).pipe(
       map(
-        (olympics: Olympic[]): number => this.getParticipationsPerCountry(olympics, id).reduce(
+        (olympic: Olympic): number =>  this._getParticipations(olympic).reduce(
           (medals: number, participation: Participation): number => medals + participation.medalsCount,
           0
         )
@@ -100,10 +100,10 @@ export class DataService {
     );
   }
 
-  getAthleteCountByCountryId(id: number): Observable<number> {
-    return this._olympicService.getOlympics().pipe(
+  getAthleteCountByCountryId(id: string | null): Observable<number> {
+    return this._olympicService.getOlympicByCountryId(id).pipe(
       map(
-        (olympics: Olympic[]): number => this.getParticipationsPerCountry(olympics, id).reduce(
+        (olympic: Olympic): number =>  this._getParticipations(olympic).reduce(
           (athletes: number, participation: Participation): number => athletes + participation.athleteCount,
           0
         )
@@ -111,47 +111,33 @@ export class DataService {
     );
   }
 
-  getLineChartData(id: number): Observable<LineChartElement[]> {
-    return this._olympicService.getOlympics().pipe(
-      map((olympics: Olympic[]): LineChartElement[] => {
-          const olympic = olympics.filter((element: Olympic): boolean => element.id == id)[0];
-          if (olympics) {
-            const olympic = olympics.filter((element: Olympic): boolean => element.id == id)[0];
-            if (!olympic) {
-              throw Error(`Country id: ${id} does not exist`);
-            }
-          }
-          if (olympic.participations) {
-            const arraySeries: LineChartSeries[] = [];
+  getLineChartData(id: string | null): Observable<LineChartElement[]> {
+    return this._olympicService.getOlympicByCountryId(id).pipe(
+      map((olympic: Olympic): LineChartElement[] => {
+        const arraySeries: LineChartSeries[] = [];
 
-            for (const participation of olympic.participations) {
-              const series: LineChartSeries =
-                {
-                  "name": participation.year.toString(),
-                  "value": participation.medalsCount
-                }
-              arraySeries.push(series);
-            }
-            return [
+        for (const participation of this._getParticipations(olympic)) {
+            const series: LineChartSeries =
               {
-                "name": olympic.country,
-                "series": arraySeries
+                "name": participation.year.toString(),
+                "value": participation.medalsCount
               }
-            ];
+            arraySeries.push(series);
           }
-          throw Error(`Missing participations for Country Id : ${id}`);
+          return [
+            {
+              "name": olympic.country,
+              "series": arraySeries
+            }
+          ];
         }
       )
     )
   }
 
-  private getParticipationsPerCountry(olympics: Olympic[], id: number): Participation[] {
-    const olympic = olympics.filter((element: Olympic): boolean => element.id == id)[0];
-    if (!olympic) {
-      throw Error(`Country id: ${id} does not exist`);
-    }
+  private _getParticipations(olympic: Olympic): Participation[] {
     if (olympic.participations) {
-      return olympic.participations;
+      return olympic.participations
     }
     throw Error(`Missing participations for ${olympic.country}`);
   }

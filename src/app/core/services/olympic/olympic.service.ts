@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { Olympic } from '../../models/olympic';
 
@@ -10,13 +10,35 @@ import { Olympic } from '../../models/olympic';
 export class OlympicService {
   private olympicUrl: string = './assets/mock/olympic.json';
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {
+  }
 
   getOlympics(): Observable<Olympic[]> {
     return this._http.get<Olympic[]>(this.olympicUrl);
   }
 
-  getOlympicByCountryId(id: number): Observable<Olympic> {
-    return this._http.get<Olympic>(`${this.olympicUrl}/${id}`);
+  getOlympicByCountryId(id: string | null ): Observable<Olympic> {
+    return this.getOlympics()
+      .pipe(
+        map((olympics: Olympic[]) => {
+
+          const idNumber: number = Number(id);
+          if (!Number.isInteger(idNumber)) {
+            throw Error(`Error 400 - Bad Request - Invalid country id : ${id}`);
+          }
+          const arr: Olympic[] = olympics.filter((olympic: Olympic) => olympic.id == idNumber);
+          if (arr.length === 0) {
+            throw new HttpErrorResponse(({
+              status: 400,
+              statusText: `Bad country id : ${id}`,
+              url: this.olympicUrl
+            }))
+          }
+          if (arr.length >= 2) {
+            throw new Error(`Duplicate country id : ${id}`);
+          }
+          return arr[0];
+        })
+      )
   }
 }

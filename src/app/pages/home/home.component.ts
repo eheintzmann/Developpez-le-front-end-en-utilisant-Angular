@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faAward } from '@fortawesome/free-solid-svg-icons';
 
 import { PieChartElement } from '../../core/models/pie-chart-element';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   readonly faAward = faAward;
-  data = {
-    "pieChart": null,
-    "countryCount": null,
-    "jOCount": null
-  };
+  public data! : { [key: string]: string | number }
+  private subscription = new Subscription();
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -23,8 +21,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
-    this._activatedRoute.data.subscribe(
+    this.subscription = this._activatedRoute.data.subscribe(
       ({homeData}) => {
         this.data = homeData;
       })
@@ -32,6 +29,10 @@ export class HomeComponent implements OnInit {
 
   onSelect($event: PieChartElement): void {
     this._router.navigateByUrl(`/detail/${$event.extra.id}`);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

@@ -12,7 +12,6 @@ type HomeData = {
 };
 
 export const homeResolver: ResolveFn<HomeData> = (route, state) => {
-
   const dataService: DataService = inject(DataService);
 
   return forkJoin({
