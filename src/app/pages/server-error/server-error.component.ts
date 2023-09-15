@@ -14,7 +14,6 @@ export class ServerErrorComponent implements OnInit, OnDestroy {
   constructor(private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
     this.subscription = this._route.data.pipe(
       tap(
       ({serverError}) => {
@@ -24,7 +23,6 @@ export class ServerErrorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
     this.subscription.unsubscribe();
   }
 

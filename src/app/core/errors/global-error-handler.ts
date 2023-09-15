@@ -13,7 +13,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     let message: string;
 
     if (error instanceof HttpErrorResponse) {
-
+      // Server Error
       this._router.navigateByUrl('/server-error', {
         state: {
           serverError: {
@@ -26,11 +26,26 @@ export class GlobalErrorHandler implements ErrorHandler {
         }
       });
 
-    } else {
+    } else if (error instanceof Error) {
       // Client Error
-      const clientMessage = error.message ? error.message : error.toString();
-      message = `Client error :\n${clientMessage}`;
-      alert(message);
+      this._router.navigateByUrl('/error', {
+        state: {
+          clientError: {
+            name: error.name,
+            message: error.message,
+            stack: error.stack
+          }
+        }
+      });
+    } else {
+      // Unknown Error
+      this._router.navigateByUrl('/error', {
+        state: {
+          clientError: {
+            message: error.toString()
+          }
+        }
+      });
     }
   }
 

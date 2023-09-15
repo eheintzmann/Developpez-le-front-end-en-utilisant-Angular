@@ -1,4 +1,5 @@
-<section *ngIf="serverError as error; else noError">
+<section>
+  <ng-container *ngIf="serverError as error; else noError">
   <h1>Server error</h1>
   <h2>Technical details</h2>
   <dl>
@@ -11,10 +12,10 @@
     <dt>Message</dt>
     <dd>{{ error["message"] }}</dd>
   </dl>
+  </ng-container>
+  <ng-template #noError>
+    <h1>No server error</h1>
+  </ng-template>
 </section>
 
-<ng-template #noError>
-  <section>
-  <h1>No server error</h1>
-  </section>
-</ng-template>
+

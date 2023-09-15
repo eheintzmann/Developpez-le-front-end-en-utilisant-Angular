@@ -8,6 +8,8 @@ import { homeResolver } from "./pages/home/home.resolver";
 import { countryDetailResolver } from "./pages/country-detail/country-detail.resolver";
 import { ServerErrorComponent } from "./pages/server-error/server-error.component";
 import { serverErrorResolver } from "./pages/server-error/server-error.resolver";
+import { ErrorComponent } from './pages/error/error.component';
+import { errorResolver } from './pages/error/error.resolver';
 
 const routes: Routes = [
   {
@@ -24,6 +26,11 @@ const routes: Routes = [
     path: 'detail/:id',
     component: CountryDetailComponent,
     resolve: { countryDetailData: countryDetailResolver }
+  },
+  {
+    path: 'error',
+    component: ErrorComponent,
+    resolve: { clientError: errorResolver }
   },
   {
     path: 'server-error',

@@ -15,6 +15,7 @@ import { GlobalErrorHandler } from './core/errors/global-error-handler';
 import { CountryDetailComponent } from './pages/country-detail/country-detail.component';
 import { CachingInterceptor } from './core/http-interceptors/caching.interceptor';
 import { ServerErrorComponent } from './pages/server-error/server-error.component';
+import { ErrorComponent } from './pages/error/error.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ServerErrorComponent } from './pages/server-error/server-error.componen
     NotFoundComponent,
     TitleBoxComponent,
     CountryDetailComponent,
-    ServerErrorComponent
+    ServerErrorComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
