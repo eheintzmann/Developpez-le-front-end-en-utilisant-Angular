@@ -6,40 +6,33 @@ import {
   HttpInterceptor,
   HttpResponse
 } from '@angular/common/http';
-import { Observable, of, tap } from 'rxjs';
+import { filter, Observable, shareReplay, take } from 'rxjs';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
-  private _cache: Map<string, HttpResponse<any>> = new Map();
+  private readonly store: Record<string, Observable<HttpEvent<any>>> = {};
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (!this.isCacheable(request)) {
       return next.handle(request)
     }
 
-    const cachedResponse: HttpResponse<any> | undefined = this._cache.get(request.url);
-    return cachedResponse ? of(cachedResponse) : this.sendRequest(request, next);
+    // Check if observable is in cache, otherwise call next.handle
+
+    const cachedObservable: Observable<HttpEvent<any>> = this.store[request.urlWithParams] ||
+      (this.store[request.urlWithParams] = next.handle(request).pipe(
+        // Filter since we are interested in caching the response only, not progress events
+        filter((res) => res instanceof HttpResponse),
+        // Share replay will cache the response
+        shareReplay(1)
+      ));
+
+    // Mimic the behaviour of httpClient.get
+    return cachedObservable.pipe(take(1));
   }
 
   private isCacheable(req: HttpRequest<any>): boolean {
     return (req.method == "GET");
   }
 
-  /**
-   * Get server response observable by sending request to `next()`.
-   * Will add the response to the cache on the way out.
-   */
-  private sendRequest(
-    req: HttpRequest<any>,
-    next: HttpHandler,
-  ): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
-      tap(event => {
-        // There may be other events besides the response.
-        if (event instanceof HttpResponse) {
-          this._cache.set(req.url, event); // Update the cache.
-        }
-      })
-    );
-  }
 }

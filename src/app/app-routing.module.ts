@@ -4,10 +4,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { CountryDetailComponent } from './pages/country-detail/country-detail.component';
-import { homeResolver } from "./pages/home/home.resolver";
-import { countryDetailResolver } from "./pages/country-detail/country-detail.resolver";
-import { ServerErrorComponent } from "./pages/server-error/server-error.component";
-import { serverErrorResolver } from "./pages/server-error/server-error.resolver";
+import { homeResolver } from './pages/home/home.resolver';
+import { countryDetailResolver } from './pages/country-detail/country-detail.resolver';
+import { ServerErrorComponent } from './pages/server-error/server-error.component';
+import { serverErrorResolver } from './pages/server-error/server-error.resolver';
 import { ErrorComponent } from './pages/error/error.component';
 import { errorResolver } from './pages/error/error.resolver';
 
