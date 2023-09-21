@@ -1,9 +1,9 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GlobalErrorHandler } from "./handler/global-error-handler";
 
-import { ErrorRoutingModule } from "./error-routing.module";
-import { ErrorComponent } from "./component/error.component";
+import { ErrorComponent } from './component/error.component';
+import { GlobalErrorHandler } from './handler/global-error-handler';
+import { ErrorRoutingModule } from './error-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,9 @@ import { ErrorComponent } from "./component/error.component";
     ErrorRoutingModule
   ],
   providers: [
-    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    GlobalErrorHandler,
+    /** @see https://angular.io/api/core/ErrorHandler#example */
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }
   ]
 })
 export class ErrorModule { }

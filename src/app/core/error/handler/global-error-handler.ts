@@ -1,52 +1,78 @@
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, Injectable, NgZone } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { ErrorClass } from '../enum/error-class';
 
+import { CustomError } from '../model/custom-error';
+import { Router } from '@angular/router';
+
+/** @see https://angular.io/api/core/ErrorHandler */
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-  constructor(private _router: Router) { }
+  constructor(
+    private _router: Router,
+    private _ngZone: NgZone,
+  ) {
+  }
 
-  handleError(wrapperError: any) {
-    const error = wrapperError.rejection ? wrapperError.rejection : wrapperError;
+  /** @see https://angular.io/api/core/ErrorHandler#example */
+  handleError(wrappedError: any) {
 
-    if (error instanceof HttpErrorResponse) {
-      // Server Error
-      this._router.navigate(['error'], {
+    this._ngZone.run(() => this._router.navigate(
+      ['error'], {
         skipLocationChange: true,
-        queryParams: {
-          class: ErrorClass.Server,
-          name: error.name,
-          message: error.message,
-          status: error.status,
-          statusText: error.statusText,
-          url: error.url
-        }
-      });
-      return;
+        queryParams: this._filterError(wrappedError.rejection ?? wrappedError)
+      }
+    ));
+  }
+
+  private _filterError(error: any): CustomError {
+
+    // Navigator OffLIne
+    if (!(navigator.onLine)) {
+      return {
+        title: 'OffLine',
+        message: 'The navigator is OffLine'
+      }
     }
+
+    // Server Error
+    if (error instanceof HttpErrorResponse) {
+      return this._filterHTTPError(error);
+    }
+
     // Client Error
     if (error instanceof Error) {
-      this._router.navigate(['error'], {
-        skipLocationChange: true,
-        queryParams: {
-          class: ErrorClass.Client,
-          name: error.name,
-          message: error.message,
-          stack: error.stack
-        }
-      });
-      return;
+      return {
+        title: 'Error',
+        message: error.message ?? error.toString(),
+        details: error.stack
+      };
     }
-    // Unknown Error
-    this._router.navigate(['error'], {
-      skipLocationChange: true,
-      queryParams: {
-        class: ErrorClass.Unknown,
-        message: error.toString()
+
+    // Unknown error
+    return {
+      title: 'Unknown error',
+      message: 'Oops! An Unknown Error Occurred',
+      details: error.toString(),
+    };
+  }
+
+  private _filterHTTPError(error: HttpErrorResponse): CustomError {
+
+    // Invalid Country ID
+    if (error.status === 400) {
+      return {
+        title: 'Server Error',
+        message: `${error.statusText}`,
       }
-    });
+    }
+
+    // Other Server Error
+    return {
+      title: 'Server Error',
+      message: `The Server returned a "${error.status} ${error.statusText}".`,
+      details: error.message
+    }
   }
 
 }

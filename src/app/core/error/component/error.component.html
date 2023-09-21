@@ -1,14 +1,4 @@
-<section>
-  <ng-container *ngIf="errorTitle; else noError">
-    <div class="center">
-      <h1>{{ errorTitle }}</h1>
-    </div>
-  </ng-container>
-  <ng-template #noError>
-    <div class="center">
-      <h1>Unknown error</h1>
-    </div>
-  </ng-template>
+<section *ngIf="customError" id="error-section">
+  <h1> {{ customError.title }}</h1>
+  <p *ngIf="customError.message" >{{ customError.message }}</p>
 </section>
-
-

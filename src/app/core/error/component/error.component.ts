@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription, tap } from 'rxjs';
-import { ErrorClass } from '../enum/error-class';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CustomError } from '../model/custom-error';
 
 @Component({
   selector: 'app-server-error',
@@ -9,37 +9,18 @@ import { ErrorClass } from '../enum/error-class';
   styleUrls: ['./error.component.scss']
 })
 export class ErrorComponent implements OnInit, OnDestroy {
-  errorTitle: string = '';
-  subscription: Subscription = new Subscription();
+  public customError?: CustomError
+  private subscription!: Subscription;
 
   constructor(private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.subscription = this._route.data.pipe(
-      tap(
-        ({error}) => this.errorTitle = this.setErrorMessage(error))
-    ).subscribe();
+    this.subscription = this._route.data.subscribe( ({customError}) => {
+      this.customError = customError });
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-  }
-
-  private setErrorMessage(error: ParamMap): string {
-
-    if (!error.has('class') ) {
-      return 'No corresponding page found';
-    }
-    if (error.get('class') === ErrorClass.Server.toString()) {
-      if (error.get('status') === '400') {
-        return 'Bad request';
-      }
-      return 'Server error';
-    }
-    if (error.get('class') === ErrorClass.Client.toString()) {
-      return 'Erreur client';
-    }
-    return  'Unknown error';
   }
 
 }

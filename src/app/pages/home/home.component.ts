@@ -28,7 +28,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   onSelect($event: PieChartElement): void {
-    this._router.navigateByUrl(`/detail/${$event.extra.id}`);
+    const countryId: number | null = $event?.extra?.id ?? null;
+    if (countryId === null) {
+      throw Error("Missing Country ID");
+    }
+    this._router.navigateByUrl(`/detail/${countryId}`);
   }
 
   ngOnDestroy() {

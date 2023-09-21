@@ -57,7 +57,7 @@ export class DataService {
     return this._olympicService.getOlympics().pipe(
       map((olympics: Olympic[]): number => {
           if (olympics.length === 0) {
-            throw Error('Empty data')
+            throw Error('Empty dataset')
           }
           const yearSet: Set<number> = new Set<number>();
           for (const olympic of olympics) {

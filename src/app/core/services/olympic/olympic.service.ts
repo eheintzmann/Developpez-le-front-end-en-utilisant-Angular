@@ -23,15 +23,14 @@ export class OlympicService {
         map((olympics: Olympic[]) => {
           const arr: Olympic[] = olympics.filter((olympic: Olympic) => olympic.id.toString() === id);
 
-          if (arr.length === 0) {
-            throw new HttpErrorResponse(({
+          if (arr.length < 1) {
+            throw new HttpErrorResponse({
               status: 400,
-              statusText: `Bad country id : ${id}`,
-              url: this.olympicUrl
-            }))
+              statusText: `Invalid Country ID : ${id}`
+            })
           }
-          if (arr.length >= 2) {
-            throw new Error(`Duplicate country id : ${id}`);
+          if (arr.length > 1) {
+            throw new Error(`Duplicate Country ID : ${id}`);
           }
           return arr[0];
         })
