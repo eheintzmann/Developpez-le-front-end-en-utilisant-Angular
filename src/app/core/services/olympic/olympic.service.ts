@@ -8,13 +8,13 @@ import { Olympic } from '../../models/olympic';
   providedIn: 'root',
 })
 export class OlympicService {
-  private olympicUrl: string = './assets/mock/olympic.json';
+  private _olympicUrl: string = './assets/mock/olympic.json';
 
   constructor(private _http: HttpClient) {
   }
 
   getOlympics(): Observable<Olympic[]> {
-    return this._http.get<Olympic[]>(this.olympicUrl);
+    return this._http.get<Olympic[]>(this._olympicUrl);
   }
 
   getOlympicByCountryId(id: string | null ): Observable<Olympic> {

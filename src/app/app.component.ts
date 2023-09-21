@@ -10,11 +10,14 @@ import { Subscription, tap } from 'rxjs';
 export class AppComponent implements OnInit, OnDestroy {
   public title: string = 'olympic-games-starter';
   public loading: boolean = false;
-  private subscription: Subscription = new Subscription();
+  private _subscription: Subscription = new Subscription();
 
   constructor(private _router: Router) {
+  }
 
-    this.subscription = this._router.events
+
+  ngOnInit(): void {
+    this._subscription = this._router.events
       .pipe(
         tap({
             next: (event): void => {
@@ -36,11 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
       ).subscribe();
   }
 
-
-  ngOnInit(): void {}
-
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
 }

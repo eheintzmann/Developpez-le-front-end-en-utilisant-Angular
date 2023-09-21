@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { faAward } from '@fortawesome/free-solid-svg-icons';
 
-import { PieChartElement } from '../../core/models/pie-chart-element';
-import { Subscription } from "rxjs";
+import { PieChartElement } from '../../../core/models/pie-chart-element';
+import { HomeData } from '../model/home-data';
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,8 @@ import { Subscription } from "rxjs";
 })
 export class HomeComponent implements OnInit, OnDestroy {
   public readonly faAward = faAward;
-  public data!: { "pieChart": PieChartElement[], "countryCount": number, "jOCount": number};
-  private subscription = new Subscription();
+  public data!: HomeData;
+  private _subscription = new Subscription();
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this._activatedRoute.data.subscribe(
+    this._subscription = this._activatedRoute.data.subscribe(
       ({homeData}) => {
         this.data = homeData;
       })
@@ -36,7 +37,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
 }

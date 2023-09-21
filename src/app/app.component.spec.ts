@@ -28,10 +28,11 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('olympic-games-starter');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('olympic-games-starter app is running!');
-  });
+  // AppComponent does not display text anymore
+  // it('should render title', () => {
+  //   const fixture = TestBed.createComponent(AppComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.nativeElement as HTMLElement;
+  //   expect(compiled.querySelector('.content span')?.textContent).toContain('olympic-games-starter app is running!');
+  // });
 });

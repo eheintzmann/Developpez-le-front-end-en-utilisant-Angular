@@ -10,17 +10,17 @@ import { filter, Observable, shareReplay, take } from 'rxjs';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
-  private readonly store: Record<string, Observable<HttpEvent<any>>> = {};
+  private readonly _store: Record<string, Observable<HttpEvent<any>>> = {};
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (!this.isCacheable(request)) {
+    if (!this._isCacheable(request)) {
       return next.handle(request)
     }
 
     // Check if observable is in cache, otherwise call next.handle
 
-    const cachedObservable: Observable<HttpEvent<any>> = this.store[request.urlWithParams] ||
-      (this.store[request.urlWithParams] = next.handle(request).pipe(
+    const cachedObservable: Observable<HttpEvent<any>> = this._store[request.urlWithParams] ||
+      (this._store[request.urlWithParams] = next.handle(request).pipe(
         // Filter since we are interested in caching the response only, not progress events
         filter((res) => res instanceof HttpResponse),
         // Share replay will cache the response
@@ -31,7 +31,7 @@ export class CachingInterceptor implements HttpInterceptor {
     return cachedObservable.pipe(take(1));
   }
 
-  private isCacheable(req: HttpRequest<any>): boolean {
+  private _isCacheable(req: HttpRequest<any>): boolean {
     return (req.method == "GET");
   }
 

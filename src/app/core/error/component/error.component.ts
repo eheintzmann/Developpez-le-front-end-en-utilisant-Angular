@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 import { CustomError } from '../model/custom-error';
 
 @Component({
@@ -10,17 +11,17 @@ import { CustomError } from '../model/custom-error';
 })
 export class ErrorComponent implements OnInit, OnDestroy {
   public customError?: CustomError
-  private subscription!: Subscription;
+  private _subscription: Subscription = new Subscription();
 
   constructor(private _route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.subscription = this._route.data.subscribe( ({customError}) => {
+    this._subscription = this._route.data.subscribe( ({customError}) => {
       this.customError = customError });
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this._subscription.unsubscribe();
   }
 
 }

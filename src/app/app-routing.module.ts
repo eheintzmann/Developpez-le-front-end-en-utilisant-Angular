@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './pages/home/home.component';
-import { CountryDetailComponent } from './pages/country-detail/country-detail.component';
-import { homeResolver } from './pages/home/home.resolver';
-import { countryDetailResolver } from './pages/country-detail/country-detail.resolver';
+import { HomeComponent } from './pages/home/component/home.component';
+import { CountryDetailComponent } from './pages/country-detail/component/country-detail.component';
+import { homeResolver } from './pages/home/resolver/home.resolver';
+import { countryDetailResolver } from './pages/country-detail/resolver/country-detail.resolver';
 
 const routes: Routes = [
   {

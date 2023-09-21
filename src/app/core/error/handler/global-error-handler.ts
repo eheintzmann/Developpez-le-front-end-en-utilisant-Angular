@@ -18,7 +18,7 @@ export class GlobalErrorHandler implements ErrorHandler {
   handleError(wrappedError: any) {
 
     this._ngZone.run(() => this._router.navigate(
-      ['error'], {
+      ['/error'], {
         skipLocationChange: true,
         queryParams: this._filterError(wrappedError.rejection ?? wrappedError)
       }
