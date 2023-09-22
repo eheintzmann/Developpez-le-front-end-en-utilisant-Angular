@@ -1,0 +1,21 @@
+@import '../../../../styles';
+
+$tooltip-background-color: $common-boxes-color;
+
+#dashboard-container {
+  text-align: center;
+
+  app-title-box, .row {
+    margin: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1ex 2ex;
+  }
+
+  #piechart-container {
+    margin: 2em auto 0 auto;
+  }
+
+}

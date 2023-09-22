@@ -1,28 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HomeComponent } from './pages/home/home.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { CountryComponent } from './pages/country/country.component';
+import { HomeComponent } from './pages/home/component/home.component';
+import { CountryDetailComponent } from './pages/country-detail/component/country-detail.component';
+import { homeResolver } from './pages/home/resolver/home.resolver';
+import { countryDetailResolver } from './pages/country-detail/resolver/country-detail.resolver';
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
-  },
-  {
-    path: 'detail/:id',
-    component: CountryComponent,
+    redirectTo: '/dashboard',
+    pathMatch: 'full'
   },
   {
     path: 'dashboard',
-    redirectTo: '/',
-    pathMatch: 'full',
+    component: HomeComponent,
+    resolve: { homeData: homeResolver }
   },
   {
-    path: '**', // wildcard
-    component: NotFoundComponent,
-  },
+    path: 'detail/:id',
+    component: CountryDetailComponent,
+    resolve: { countryDetailData: countryDetailResolver }
+  }
 ];
 
 @NgModule({

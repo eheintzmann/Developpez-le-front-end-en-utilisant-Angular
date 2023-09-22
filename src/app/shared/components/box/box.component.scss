@@ -1,0 +1,24 @@
+@import '../../../../styles';
+
+$box-border-color: $common-boxes-color;
+$box-background-color: $common-pages-background-color;
+$box-text-color: $common-light-text-color;
+$box-number-color: rgba(0, 0, 0, 1);
+
+#box-container {
+  padding: 1ex;
+  border: 2px solid $box-border-color;
+  border-radius: 8px;
+  background-color: $box-background-color;
+  text-align: center;
+
+  #text-container {
+    color: $box-text-color;
+    font-weight: normal;
+  }
+
+  #number-container {
+    font-weight: bold;
+    color: $box-number-color;
+  }
+}

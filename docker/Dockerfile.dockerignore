@@ -1,0 +1,8 @@
+.angular/
+node_modules/
+dist/
+.idea/
+.vscode/
+.editorconfig
+README.md
+*.spec.json

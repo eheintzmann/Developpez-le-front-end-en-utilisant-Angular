@@ -1,0 +1,26 @@
+@import '../../../../styles';
+
+$tooltip-background-color: $common-boxes-color;
+
+#country-container {
+  text-align: center;
+
+  app-title-box, .row {
+    margin: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1ex 2ex;
+  }
+  @media (max-width: 625px) {
+    .row {
+      flex-direction: column;
+    }
+  }
+
+  #linechart-container {
+    margin: 4em auto 0 auto;
+    max-width: 625px;
+  }
+}

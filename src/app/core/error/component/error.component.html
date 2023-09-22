@@ -1,0 +1,4 @@
+<section *ngIf="customError" id="error-section">
+  <h1> {{ customError.title }}</h1>
+  <p *ngIf="customError.message" >{{ customError.message }}</p>
+</section>
